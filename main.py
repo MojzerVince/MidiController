@@ -1,4 +1,5 @@
 import mido
+import time
 from pynput.keyboard import Key, Controller
 
 print("Starting MIDI to Keyboard Mapper...\n")
@@ -28,17 +29,34 @@ keyboard = Controller()
 print(f"\nListening for MIDI messages on {midi_device}...\n")
 print("Please press the MIDI button you want to use as the UP ARROW!")
 with midi_port:
-    for msg in midi_port:
-        if 'note_on' in msg:
-            up = msg
+    for msg1 in midi_port:
+        if 'note_on' in str(msg1):
+            up = msg1
             print(f"UP ARROW MIDI message: {up}")
-            break
+        break
+time.sleep(0.5) # Give some time before asking for the next button
+midi_port.close()
+midi_port = mido.open_input(midi_device)
+
 print("\nPlease press the MIDI button you want to use as the DOWN ARROW!")
 with midi_port:
-    for msg in midi_port:
-        if 'note_on' in msg:
-            down = msg
+    for msg2 in midi_port:
+        if 'note_on' in str(msg2):
+            down = msg2
             print(f"DOWN ARROW MIDI message: {down}")
-            break
+        break
+time.sleep(0.5)
+midi_port.close()
+midi_port = mido.open_input(midi_device)
 
-print("Successfully mapped MIDI buttons to keyboard arrows!")
+print("\nSuccessfully mapped MIDI buttons to keyboard arrows!")
+print("Now you can use your MIDI device to control the UP and DOWN arrows on your keyboard!\n")
+
+with midi_port:
+    for msg in midi_port:
+        if msg == up:
+            print("UP ARROW pressed")
+            keyboard.press(Key.up)
+        elif msg == down:
+            print("DOWN ARROW pressed")
+            keyboard.press(Key.down)
