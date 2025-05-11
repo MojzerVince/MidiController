@@ -22,6 +22,15 @@ If you got an error saying: `error creating Windows MM MIDI input port.`
 
 To solve these, please open an unused MIDI port!
 
+### My own advice:
+If you are using an **M-Audio Keystation 49 MK3** (like me) you will see two ports:
+
+![image](https://github.com/user-attachments/assets/40cee048-90f3-4858-9a71-0e64b9da8831)
+
+First one's for the keys and the second one is for the buttons and sliders!
+
+**Your MIDI device might work the same just mine!**
+
 ## What to expect in the future:
 
  - Better menu navigation
