@@ -3,10 +3,13 @@ import time
 from pynput.keyboard import Key, Controller
 
 print("Starting MIDI to Keyboard Mapper...\n")
-print("Please select a MIDI input device")
 
 # List available MIDI input devices
 midi_input = mido.get_input_names()
+if not midi_input:
+    print("No MIDI input devices found!")
+    print("Please connect a MIDI device and try again!")
+    exit()
 for i, device in enumerate(midi_input):
     print(f"{i}: {device}")
 
